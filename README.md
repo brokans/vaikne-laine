@@ -13,8 +13,7 @@ vaatest ja kontaktilehest.
 Valisin **Storyblok**'i (headless CMS) koos **Astro** frontendiga. Storyblok hoiab
 sisu pilves ja pakub seda API kaudu, nii et sisu ja kujundus on lahutatud —
 toimetaja saab uudiseid lisada mugava admin-liidese kaudu ilma koodi puutumata.
-Astro genereerib sellest kiire staatilise saidi. Eksami skoobis piisab
-lokaalsest arendusest (`npm run dev`); avalikku hostimist ei ole vaja.
+Astro genereerib sellest kiire staatilise saidi.
 
 ## Tööplaan ja ajahinnang (~3 h)
 
