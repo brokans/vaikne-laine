@@ -7,7 +7,7 @@ export async function getStaticPaths() {
   const api = useStoryblokApi();
   const { data } = await api.get("cdn/stories", { version, per_page: 100 });
   return data.stories
-    .filter((s) => s.slug !== "home" && s.full_slug !== "uudised")
+    .filter((s) => s.slug !== "home" && s.full_slug !== "uudised" && s.full_slug !== "kontakt")
     .map((s) => ({ params: { slug: s.full_slug }, props: { story: s } }));
 }
 const { story } = Astro.props;

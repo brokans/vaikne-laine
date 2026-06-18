@@ -1,0 +1,59 @@
+---
+import { useStoryblokApi } from "@storyblok/astro";
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+import Layout from "../layouts/Layout.astro";
+const version = import.meta.env.DEV ? "draft" : "published";
+const api = useStoryblokApi();
+const { data } = await api.get("cdn/stories/kontakt", { version });
+const story = data.story;
+---
+<Layout title="Kontakt">
+  <StoryblokComponent blok={story.content} />
+
+  <section class="contact-form-section">
+    <h2>Saada meile sõnum</h2>
+    <form class="contact-form" id="contact-form">
+      <label>
+        Nimi
+        <input type="text" name="name" required placeholder="Sinu nimi" />
+      </label>
+      <label>
+        E-post
+        <input type="email" name="email" required placeholder="sinu@email.ee" />
+      </label>
+      <label>
+        Teema
+        <input type="text" name="subject" placeholder="Nt mööblitüki restaureerimine" />
+      </label>
+      <label>
+        Sõnum
+        <textarea name="message" rows="5" required placeholder="Kirjelda oma soovi..."></textarea>
+      </label>
+      <button type="submit">Saada sõnum</button>
+      <p class="form-status" id="form-status" hidden>Aitäh! See on näidisvorm, sõnumit ei saadetud.</p>
+    </form>
+  </section>
+
+  <style>
+    .contact-form-section { margin-top:2.5rem; padding-top:2rem; border-top:1px solid #e3dccd; }
+    .contact-form-section h2 { color:var(--brand); }
+    .form-note { color:#888; font-size:0.9rem; margin-top:-0.4rem; }
+    .contact-form { display:flex; flex-direction:column; gap:1rem; max-width:520px; }
+    .contact-form label { display:flex; flex-direction:column; gap:0.35rem; font-weight:600; font-size:0.95rem; color:var(--text); }
+    .contact-form input, .contact-form textarea { font:inherit; padding:0.6rem 0.7rem; border:1px solid #cfc6b5; border-radius:8px; background:#fff; }
+    .contact-form input:focus, .contact-form textarea:focus { outline:2px solid var(--accent); outline-offset:1px; }
+    .contact-form button { align-self:flex-start; background:var(--brand); color:#fff; border:none; padding:0.7rem 1.4rem; border-radius:8px; font-size:1rem; cursor:pointer; }
+    .contact-form button:hover { background:#2c382f; }
+    .form-status { color:var(--brand); font-weight:600; }
+  </style>
+
+  <script>
+    const form = document.getElementById("contact-form");
+    const status = document.getElementById("form-status");
+    form?.addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (status) status.hidden = false;
+      form.reset();
+    });
+  </script>
+</Layout>
