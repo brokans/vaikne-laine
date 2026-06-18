@@ -13,9 +13,8 @@ vaatest ja kontaktilehest.
 Valisin **Storyblok**'i (headless CMS) koos **Astro** frontendiga. Storyblok hoiab
 sisu pilves ja pakub seda API kaudu, nii et sisu ja kujundus on lahutatud —
 toimetaja saab uudiseid lisada mugava admin-liidese kaudu ilma koodi puutumata.
-Astro genereerib sellest kiire staatilise saidi, mida saab tasuta ja avalikult
-hostida Cloudflare'is, ning Storybloki webhook käivitab avaldamisel automaatse
-uuesti-ehituse.
+Astro genereerib sellest kiire staatilise saidi. Eksami skoobis piisab
+lokaalsest arendusest (`npm run dev`); avalikku hostimist ei ole vaja.
 
 ## Tööplaan ja ajahinnang (~3 h)
 
@@ -26,8 +25,7 @@ uuesti-ehituse.
 5. **Storyblok seadistus** (20 min) — space (EU), sisutüübid `page` ja `news_post`, väljad.
 6. **Lehed/vaated** (30 min) — esileht, uudiste loend, üksiku uudise vaade, kontaktileht.
 7. **Sisu sisestamine** (25 min) — esilehe sisu, 2–3 uudist, kontaktinfo; kõik avaldada.
-8. **Deploy** (20 min) — GitHub repo, Cloudflare Pages/Workers, env-muutujad.
-9. **Deploy hook** (10 min) — Storyblok webhook → automaatne rebuild.
-10. **Viimistlus** (20 min) — stiilid, mobiilikontroll, päise/jaluse kohandus, testimine.
+8. **Lokaalne käivitus ja kontroll** (15 min) — `npm run dev`, kõigi lehtede ja vaadete testimine.
+9. **Viimistlus** (20 min) — stiilid, mobiilikontroll, päise/jaluse kohandus.
 
 > Plaan võib töö käigus täpsustuda; muudatused kajastan commitides.
