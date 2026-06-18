@@ -1,0 +1,48 @@
+---
+import { useStoryblokApi } from "@storyblok/astro";
+import Layout from "../../layouts/Layout.astro";
+const version = import.meta.env.DEV ? "draft" : "published";
+const api = useStoryblokApi();
+const { data } = await api.get("cdn/stories", {
+  version, content_type: "news_post", sort_by: "content.date:desc", per_page: 100,
+});
+const posts = data.stories;
+function vormindaKuupaev(raw) {
+  if (!raw) return null;
+  return new Date(raw.replace(" ", "T")).toLocaleDateString("et-EE", { dateStyle: "long" });
+}
+---
+<Layout title="Uudised">
+  <h1>Uudised</h1>
+  <p class="lead">Valminud tööd, kursused ja huvitavad leiud meie töökojast.</p>
+  {posts.length === 0 && <p>Uudiseid veel pole.</p>}
+  <div class="post-grid">
+    {posts.map((p) => (
+      <article class="card">
+        {p.content.image?.filename && (
+          <a href={`/${p.full_slug}`} class="card-img">
+            <img src={p.content.image.filename} alt={p.content.image.alt || p.content.title || ""} />
+          </a>
+        )}
+        <div class="card-body">
+          {p.content.date && <p class="meta">{vormindaKuupaev(p.content.date)}</p>}
+          <h2><a href={`/${p.full_slug}`}>{p.content.title || p.name}</a></h2>
+          {p.content.intro && <p class="excerpt">{p.content.intro}</p>}
+          <a href={`/${p.full_slug}`} class="read-more">Loe edasi →</a>
+        </div>
+      </article>
+    ))}
+  </div>
+  <style>
+    .lead { color:#555; margin-top:-0.3rem; }
+    .post-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:1.5rem; margin-top:1.5rem; }
+    .card { border:1px solid #e3dccd; border-radius:10px; overflow:hidden; background:#fff; display:flex; flex-direction:column; }
+    .card-img img { width:100%; height:180px; object-fit:cover; display:block; }
+    .card-body { padding:1rem 1.1rem 1.2rem; }
+    .card-body h2 { font-size:1.2rem; margin:0.2rem 0 0.5rem; }
+    .card-body h2 a { color:var(--brand); text-decoration:none; }
+    .meta { color:#888; font-size:0.85rem; margin:0; }
+    .excerpt { color:#444; font-size:0.95rem; }
+    .read-more { font-size:0.9rem; font-weight:600; }
+  </style>
+</Layout>
