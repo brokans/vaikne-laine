@@ -1,0 +1,17 @@
+---
+import { storyblokEditable, renderRichText } from "@storyblok/astro";
+const { blok } = Astro.props;
+const contentHtml = blok.content ? renderRichText(blok.content) : "";
+---
+<article {...storyblokEditable(blok)}>
+  <h1>{blok.title}</h1>
+  {blok.date && <p class="date">{new Date(blok.date).toLocaleDateString("et-EE")}</p>}
+  {blok.image?.filename && <img src={blok.image.filename} alt={blok.image.alt || ""} />}
+  {blok.intro && <p class="intro"><strong>{blok.intro}</strong></p>}
+  {contentHtml && <div set:html={contentHtml} />}
+  <p><a href="/uudised">← Tagasi uudistesse</a></p>
+  <style>
+    .date { color:#888; font-size:0.9rem; margin:0 0 1rem; }
+    .intro { font-size:1.1rem; }
+  </style>
+</article>

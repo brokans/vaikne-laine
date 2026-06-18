@@ -1,0 +1,10 @@
+---
+import { storyblokEditable, renderRichText } from "@storyblok/astro";
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+const { blok } = Astro.props;
+const textHtml = blok.text ? renderRichText(blok.text) : "";
+---
+<article {...storyblokEditable(blok)}>
+  {blok.body?.map((nested) => <StoryblokComponent blok={nested} />)}
+  {textHtml && <div set:html={textHtml} />}
+</article>

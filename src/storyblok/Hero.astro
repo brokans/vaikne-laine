@@ -1,0 +1,15 @@
+---
+import { storyblokEditable } from "@storyblok/astro";
+const { blok } = Astro.props;
+---
+<section class="hero" {...storyblokEditable(blok)}>
+  {blok.image?.filename && <img src={blok.image.filename} alt={blok.image.alt || ""} />}
+  <h1>{blok.headline}</h1>
+  {blok.subheadline && <p class="hero-sub">{blok.subheadline}</p>}
+  <style>
+    .hero { text-align:center; padding:1rem 0 2rem; }
+    .hero img { margin-bottom:1.5rem; }
+    .hero h1 { font-size:2.4rem; margin:0.5rem 0; }
+    .hero-sub { font-size:1.2rem; color:#555; }
+  </style>
+</section>
